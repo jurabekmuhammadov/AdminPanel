@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Forms from "../components/AddProduct/Forms";
+import { Link } from "react-router-dom";
+import "../sass/pages/_add-product.scss";
 
 const AddProduct = () => {
   const [products, setProducts] = useState([]);
@@ -10,6 +12,7 @@ const AddProduct = () => {
     price: 0,
     discountPercentage: 0,
   });
+
   async function getProducts() {
     try {
       const response = await axios.get(`http://localhost:3000/products`);
@@ -33,8 +36,8 @@ const AddProduct = () => {
         ...newProduct,
         id: `${products.length + 1}`,
       });
+      window.location.href = "/";
       console.log("Data added successfully:", response.data);
-      window.location.href = "http://localhost:5173";
     } catch (error) {
       console.error("Error adding data:", error);
     }
@@ -43,11 +46,21 @@ const AddProduct = () => {
   useEffect(() => {
     getProducts();
   }, []);
-  
+
   return (
-    <div>
+    <section id="add-product">
+      <header>
+        <div className="container header__container">
+          <h1>Новый товар</h1>
+          <div className="path">
+            <Link to={"/"}>Главная / </Link>
+            <Link to={"/"}>Товары / </Link>
+            <Link to={"/"}>Новый товар</Link>
+          </div>
+        </div>
+      </header>
       <Forms handleChange={handleChange} handleSubmit={handleSubmit} />
-    </div>
+    </section>
   );
 };
 

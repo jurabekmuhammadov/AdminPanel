@@ -1,0 +1,22 @@
+@use "../abstracts" as *;
+
+#home {
+  .home__container {
+    margin: 40px 40px 25px 140px;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px 0px;
+
+    @include media(850px) {
+      margin: 30px 20px 30px 120px;
+    }
+
+    @include media(768px) {
+      margin: 30px 20px 30px 90px;
+    }
+
+    @include media(420px) {
+      margin: 20px 15px 30px 55px;
+    }
+  }
+}

@@ -1,0 +1,78 @@
+@use "../abstracts" as *;
+
+header {
+  margin-left: 100px;
+  padding: 15px 0;
+  background-color: #ffffff;
+  box-shadow: 0px 5px 40px 0px #2121210D;
+
+  .header__container {
+    h1 {
+      font-family: Mulish;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 22.59px;
+      text-align: left;
+      color: $bold-text;
+    }
+
+    .path {
+      margin-top: 5px;
+
+      a {
+        font-family: Mulish;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 21px;
+        text-align: left;
+        color: $text;
+      }
+    }
+  }
+
+  @include media(768px) {
+    margin-left: 70px;
+    padding: 10px 0;
+
+    .header__container {
+      padding: 0 20px;
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .path {
+        margin-top: 3px;
+
+        a {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  @include media(420px) {
+    margin-left: 40px;
+    padding: 10px 0;
+
+    .header__container {
+      padding: 0 20px;
+      // display: flex;
+
+      h1 {
+        font-size: 18px;
+        line-height: 100%;
+      }
+
+      .path {
+        margin-top: 3px;
+        line-height: 120%;
+
+        a {
+          font-size: 13px;
+          line-height: 120%;
+        }
+      }
+    }
+  }
+}

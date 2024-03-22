@@ -1,0 +1,190 @@
+@use "../../sass/abstracts" as *;
+
+.add-form {
+  .main__sec {
+    margin: 40px 40px 25px 140px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px 25px 50px 25px;
+    display: grid;
+    grid-gap: 30px;
+
+    .back {
+      width: 105px;
+      padding: 14px 16px;
+      background: #F0F0F6;
+      font-family: Mulish;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 10.08px;
+      text-align: left;
+      color: $bold-text;
+      border-radius: 10px;
+      transition: 0.3s;
+
+      &:hover {
+        background: #e1e1e1;
+      }
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      label {
+        font-family: Mulish;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 8.64px;
+        text-align: left;
+        color: $bold-text;
+      }
+
+      input {
+        width: 100%;
+        padding: 20px;
+        border-radius: 12px;
+        border: none;
+        background-color: $grayscale-3;
+        font-family: Mulish;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 21px;
+        text-align: left;
+        color: $bold-text;
+
+        &:focus {
+          outline: 1px solid $main-color;
+        }
+      }
+    }
+
+    .name,
+    .desc {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+
+    .brand {
+      width: 100%;
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+
+    .product-number {
+      width: 100%;
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
+  }
+
+  .bottom {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    gap: 10px;
+    padding-left: 100px;
+
+    .save {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 10px 20px;
+      background-color: $success;
+      border-radius: 10px;
+      border: none;
+      font-family: Mulish;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: left;
+      color: white;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #18a979;
+      }
+    }
+
+    .back {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #F7F7FF;
+      font-family: Mulish;
+      font-size: 14px;
+      font-weight: 800;
+      text-align: left;
+      color: #80809B;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        background: #e1e1e1;
+      }
+    }
+  }
+
+  @include media(768px) {
+
+    .main__sec {
+
+      margin: 40px 20px 25px 90px;
+      gap: 20px;
+
+      div {
+        input {
+          padding: 10px 20px;
+        }
+      }
+    }
+
+    .bottom {
+      margin-top: 65px;
+      padding-right: 70px;
+
+    }
+  }
+
+  @include media(420px) {
+    .main__sec {
+      margin: 40px 15px 0px 55px;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+
+      .back {
+        padding: 10px 10px;
+        line-height: 120%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      div {
+        label {
+          font-size: 14px;
+        }
+
+        input {
+          padding: 10px;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .bottom {
+      margin-top: 20px;
+      padding: 15px 0 15px 30px;
+
+      .save,
+      .back {
+        padding: 8px 10px;
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -1,12 +1,15 @@
 import axios from "axios";
-import ProductList from "../components/Home/ProductList/ProductList";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import ProductList from "../components/Home/ProductList/ProductList";
 import Modal from "../components/Modal/Modal";
 import Top from "../components/Home/Top/Top";
 import Pagination from "../components/Home/Pagination/Pagination";
 import Bottom from "../components/Home/Bottom/Bottom";
+import "../sass/pages/_home.scss";
+import { Link } from "react-router-dom";
 
-const Home = () => {
+const Home = ({ setIsLoading }) => {
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editValues, setEditValues] = useState({});
@@ -20,7 +23,6 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [filterValue, setFilterValue] = useState("all");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const totalPages = Math.ceil(filteredProducts.length / 10);
   const multiplePages = totalPages > 1;
@@ -37,28 +39,9 @@ const Home = () => {
     setFilteredProducts(filtered);
   };
 
-  // const handleSort = (e) => {
-  //   const criteria = e.target.value;
-  //   let sortedProductsEndpoint = "http://localhost:3000/products?";
-  //   switch (criteria) {
-  //     case "priceAsc":
-  //       sortedProductsEndpoint += "_sort=rating";
-  //       break;
-  //     case "priceDesc":
-  //       sortedProductsEndpoint += "_sort=rating&_order=desc";
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   axios
-  //     .get(sortedProductsEndpoint)
-  //     .then((response) => {
-  //       setFilteredProducts(response.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
-  // };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handlePage = (type) => {
     if (type === "prev" && page > 1) {
@@ -109,6 +92,7 @@ const Home = () => {
       try {
         await axios.delete(`http://localhost:3000/products/${id}`);
         getProducts();
+        window.location.reload();
       } catch (err) {
         console.log(err.message);
       } finally {
@@ -128,7 +112,6 @@ const Home = () => {
   };
 
   async function submitChanges() {
-    setIsLoading(true);
     try {
       await axios.put(
         `http://localhost:3000/products/${editId}`,
@@ -138,13 +121,12 @@ const Home = () => {
       setIsModalOpen(false);
     } catch (err) {
       console.log(err.message);
-    } finally {
-      setIsLoading(false);
     }
   }
 
   useEffect(() => {
     getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -156,36 +138,51 @@ const Home = () => {
   }, [products, filterValue]);
 
   return (
-    <section>
+    <section id="home">
       <Modal
+        closeModal={closeModal}
         isModalOpen={isModalOpen}
         editValues={editValues}
         updatedValues={updatedValues}
         handleEditChange={handleEditChange}
         submitChanges={submitChanges}
       />
-      <Top
-        productsLength={products.length}
-        filter={filter}
-        search={search}
-        displayedProducts={displayedProducts}
-        // handleSort={handleSort}
-      />
-      <ProductList
-        products={displayedProducts}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-      />
-      <Pagination
-        multiplePages={multiplePages}
-        page={page}
-        handlePage={handlePage}
-        totalPages={totalPages}
-        setPage={setPage}
-      />
+      <header>
+        <div className="container header__container">
+          <h1>Товары</h1>
+          <div className="path">
+            <Link to={"/"}>Главная / </Link>
+            <Link to={"/"}>Товары</Link>
+          </div>
+        </div>
+      </header>
+      <div className="home__container">
+        <Top
+          productsLength={products.length}
+          filter={filter}
+          search={search}
+          displayedProducts={displayedProducts}
+        />
+        <ProductList
+          products={displayedProducts}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+        />
+        <Pagination
+          multiplePages={multiplePages}
+          page={page}
+          handlePage={handlePage}
+          totalPages={totalPages}
+          setPage={setPage}
+        />
+      </div>
       <Bottom />
     </section>
   );
+};
+
+Home.propTypes = {
+  setIsLoading: PropTypes.func,
 };
 
 export default Home;
